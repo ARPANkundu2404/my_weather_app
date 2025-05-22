@@ -1,0 +1,37 @@
+{
+  "name": "my_weather_app",
+  "version": "1.0.0",
+  "description": "This is a demo weather application in react",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ARPANkundu2404/My-Weather-App.git"
+  },
+  "keywords": [
+    "Arpan"
+  ],
+  "author": "Arpan Kundu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ARPANkundu2404/My-Weather-App/issues"
+  },
+  "homepage": "https://github.com/ARPANkundu2404/My-Weather-App#readme",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "parcel": "^2.14.4",
+    "postcss": "^8.5.3",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.17"
+  },
+  "browsersList": [
+    "Last 5 versions"
+  ]
+}
