@@ -121,16 +121,6 @@ This project is licensed under the **ISC License**.
 ---
 
 > _Contributions, suggestions, and improvements are always welcome!_
-```
-
-Citations:
-[1] https://dashboard.openweather.co.uk
-[2] https://dev.to/syawqy/build-a-weather-dashboard-your-first-api-project-with-react-4j7h
-[3] https://github.com/syawqy/react-weather-dashboard
-[4] https://rapidapi.com/blog/weather-app-react/
-[5] https://www.youtube.com/watch?v=M_AIa5XD2YA
-[6] https://www.reddit.com/r/reactjs/comments/1ger3hq/weather_app_in_react_with_tailwindcss_and/
-[7] https://www.youtube.com/watch?v=-mC7jS0EplM
 [8] https://github.com/topics/react-weather-app
 [9] https://www.shecodes.io/athena/50-creating-a-react-component-with-the-openweather-api
 [10] https://dev.to/ashutoshdash/making-weather-app-using-tailwind-css-using-openweathermaporg-in-javascript-4ifj
