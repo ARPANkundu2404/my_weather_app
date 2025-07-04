@@ -15,7 +15,7 @@ const ForecastCard = ({ forecast }) => {
           >
             <p className="font-semibold">{item.time}</p>
             <img
-              src="{iconUrl}"
+              src={iconUrl}
               alt="Weather icon"
               className="mx-auto h-10 w-10"
             />

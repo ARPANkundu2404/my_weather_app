@@ -24,7 +24,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo }) => {
 
     const forecastData = await forecastRes.json();
 
-    const forecastList = forecastData.list.slice(0, 8).map((item) => ({
+    const forecastList = forecastData.list.slice(0, 9).map((item) => ({
       time: item.dt_txt.split(" ")[1].slice(0, 5),
       temp: item.main.temp,
       desc: item.weather[0].description,
