@@ -3,6 +3,7 @@ import WeatherCard from "./WeatherCard";
 import { useState } from "react";
 import ForecastCard from "./ForecastCard";
 import { useSwipeable } from "react-swipeable";
+import TrendChart from "./TrendChart";
 
 const WeatherApp = () => {
   const [weatherInfo, setWeatherInfo] = useState({});
@@ -23,7 +24,7 @@ const WeatherApp = () => {
           setWeatherInfo={setWeatherInfo}
           setForecastInfo={setForecastInfo}
         />
-        
+
         <div className="flex justify-center gap-4 my-4">
           <button
             onClick={() => setActiveTab("current")}
@@ -49,7 +50,8 @@ const WeatherApp = () => {
 
         <div {...handlers}>
           {activeTab === "current" && <WeatherCard Info={weatherInfo} />}
-          {activeTab === "forecast" && <ForecastCard forecast={forecastInfo} />}
+          {activeTab === "forecast" && (
+            <><ForecastCard forecast={forecastInfo} /> <TrendChart forecast={forecastInfo} /></>)}
         </div>
       </div>
     </>
