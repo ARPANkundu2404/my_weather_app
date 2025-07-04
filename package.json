@@ -22,7 +22,8 @@
   "homepage": "https://github.com/ARPANkundu2404/My-Weather-App#readme",
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-swipeable": "^7.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
