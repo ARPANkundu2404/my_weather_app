@@ -10,7 +10,6 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   const handleOnChage = (event) => {
     setCity(event.target.value);
     setError("");
@@ -23,10 +22,14 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
       );
       const data = await response.json();
       if (data && data.list && data.list.length > 0) {
-        setAqiInfo(data.list[0].main.aqi);
+        const aqiData = data.list[0];
+        setAqiInfo({
+          aqi: aqiData.main.aqi,
+          components: aqiData.components,
+        });
       }
     } catch (err) {
-      console.error("Failed to fetch AQI:", err);
+      setError("Unable to fetch AQI data. Please try again later.");
       setAqiInfo(null);
     }
   };

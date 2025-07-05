@@ -56,7 +56,7 @@ const WeatherApp = () => {
             <>
               <WeatherCard Info={weatherInfo} />
 
-              <AQICard aqi={aqiInfo} />
+              <AQICard aqi={aqiInfo?.aqi} components={aqiInfo?.components} />
             </>
           )}
           {activeTab === "forecast" && (
