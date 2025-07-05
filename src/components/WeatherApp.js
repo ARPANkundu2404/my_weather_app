@@ -4,10 +4,12 @@ import { useState } from "react";
 import ForecastCard from "./ForecastCard";
 import { useSwipeable } from "react-swipeable";
 import TrendChart from "./TrendChart";
+import AQICard from "./AQICard";
 
 const WeatherApp = () => {
   const [weatherInfo, setWeatherInfo] = useState({});
   const [forecastInfo, setForecastInfo] = useState([]);
+  const [aqiInfo, setAqiInfo] = useState(null);
   const [activeTab, setActiveTab] = useState("current");
 
   const handlers = useSwipeable({
@@ -23,6 +25,7 @@ const WeatherApp = () => {
         <SearchBox
           setWeatherInfo={setWeatherInfo}
           setForecastInfo={setForecastInfo}
+          setAqiInfo={setAqiInfo}
         />
 
         <div className="flex justify-center gap-4 my-4">
@@ -49,9 +52,19 @@ const WeatherApp = () => {
         </div>
 
         <div {...handlers}>
-          {activeTab === "current" && <WeatherCard Info={weatherInfo} />}
+          {activeTab === "current" && (
+            <>
+              <WeatherCard Info={weatherInfo} />
+
+              <AQICard aqi={aqiInfo} />
+            </>
+          )}
           {activeTab === "forecast" && (
-            <><ForecastCard forecast={forecastInfo} /> <TrendChart forecast={forecastInfo} /></>)}
+            <>
+              <ForecastCard forecast={forecastInfo} />{" "}
+              <TrendChart forecast={forecastInfo} />
+            </>
+          )}
         </div>
       </div>
     </>

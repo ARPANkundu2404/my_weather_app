@@ -3,38 +3,66 @@ import { WEATHER_API_URL } from "../utils/constant";
 import { WEATHER_API_KEY } from "../utils/constant";
 import { FORECAST_API_URL } from "../utils/constant";
 import { CURRENT_LOCATION_API_URL } from "../utils/constant";
+import { AQI_API_URL } from "../utils/constant";
 
-const SearchBox = ({ setWeatherInfo, setForecastInfo }) => {
+const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
 
   const handleOnChage = (event) => {
     setCity(event.target.value);
     setError("");
   };
 
+  const fetchAQI = async (lat, lon) => {
+    try {
+      const response = await fetch(
+        `${AQI_API_URL}lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`
+      );
+      const data = await response.json();
+      if (data && data.list && data.list.length > 0) {
+        setAqiInfo(data.list[0].main.aqi);
+      }
+    } catch (err) {
+      console.error("Failed to fetch AQI:", err);
+      setAqiInfo(null);
+    }
+  };
+
   const fetchWeatherInfo = async () => {
     setError("");
     setLoading(true);
 
-    const forecastRes = await fetch(
-      `${FORECAST_API_URL}q=${city}&appid=${WEATHER_API_KEY}&units=metric`
-    );
-
-    const forecastData = await forecastRes.json();
-
-    const forecastList = forecastData.list.slice(0, 9).map((item) => ({
-      time: item.dt_txt.split(" ")[1].slice(0, 5),
-      temp: item.main.temp,
-      humidity: item.main.humidity,
-      desc: item.weather[0].description,
-      icon: item.weather[0].icon,
-    }));
-
-    setForecastInfo(forecastList);
-
     try {
+      const forecastRes = await fetch(
+        `${FORECAST_API_URL}q=${city}&appid=${WEATHER_API_KEY}&units=metric`
+      );
+
+      const forecastData = await forecastRes.json();
+
+      if (
+        !forecastRes.ok ||
+        !forecastData.list ||
+        forecastData.list.length === 0
+      ) {
+        setError("City not found. Please enter a valid city name");
+        setForecastInfo([]);
+        setWeatherInfo({});
+        return;
+      }
+
+      const forecastList = forecastData.list.slice(0, 9).map((item) => ({
+        time: item.dt_txt.split(" ")[1].slice(0, 5),
+        temp: item.main.temp,
+        humidity: item.main.humidity,
+        desc: item.weather[0].description,
+        icon: item.weather[0].icon,
+      }));
+
+      setForecastInfo(forecastList);
+
       const response = await fetch(
         `${WEATHER_API_URL}q=${city}&appid=${WEATHER_API_KEY}&units=metric`
       );
@@ -58,9 +86,22 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo }) => {
 
       setWeatherInfo(Info);
       setError("");
+
+      if (
+        jsonResponse.coord &&
+        jsonResponse.coord.lat &&
+        jsonResponse.coord.lon
+      ) {
+        fetchAQI(jsonResponse.coord.lat, jsonResponse.coord.lon);
+      } else {
+        setError("Unable to fetch AQI data for the provided city.");
+        setAqiInfo(null);
+      }
     } catch (error) {
       setError("Something went wrong. Please try again later.");
       setWeatherInfo({});
+      setForecastInfo([]);
+      setAqiInfo(null);
     } finally {
       setLoading(false);
     }
@@ -90,11 +131,14 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo }) => {
           if (geoData && geoData[0] && geoData[0].name) {
             setCity(geoData[0].name);
             setError("");
+            fetchAQI(latitude, longitude);
           } else {
             setError("Unable to fetch city name from your location.");
+            setAqiInfo(null);
           }
         } catch (error) {
           setError("Something went wrong in location. Please try again later.");
+          setAqiInfo(null);
         } finally {
           setLoading(false);
         }
@@ -102,6 +146,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo }) => {
       (error) => {
         setError("Something went wrong while fetching your location.");
         setWeatherInfo({});
+        setAqiInfo(null);
       }
     );
   };
@@ -111,6 +156,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo }) => {
     if (!city.trim()) {
       setError("Please enter a city name.");
       setWeatherInfo({});
+      setAqiInfo(null);
       return;
     }
     fetchWeatherInfo();
