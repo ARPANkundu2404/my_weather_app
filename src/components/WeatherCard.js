@@ -1,7 +1,9 @@
 import { WEATHER_ICON_URL } from "../utils/constant";
 import { WEATHER_API_IMG_URL } from "../utils/constant";
+import { WEATHER_BG_MAP } from "../utils/weatherBgMap";
 
-const WeatherCard = ({ Info, activeTab, setActiveTab }) => {
+
+const WeatherCard = ({ Info }) => {
   if (!Info || Object.keys(Info).length === 0) {
     return (
       <div className="flex justify-center items-center">
@@ -21,35 +23,55 @@ const WeatherCard = ({ Info, activeTab, setActiveTab }) => {
     humidity,
     description,
     icon,
+    main,
   } = Info;
 
   const iconUrl = `${WEATHER_ICON_URL}${icon}@2x.png`;
 
+  const weatherKey = main;
+  const bgFile = WEATHER_BG_MAP[weatherKey] || defaultbg;
+  // console.log(
+  //   "Weather key:",
+  //   weatherKey,
+  //   "Background file:",
+  //   bgFile,
+  //   "typeoff bgFile:",
+  //   typeof bgFile
+  // );
+  // console.log("Direct import cloudsTest:", cloudsTest);
+
   return (
-    
-      <div className=" flex flex-col justify-center items-center max-w-auto mx-auto">
-        <img
-          className="h-40 w-40 rounded-full bg-blue-100 shadow-lg shadow-blue-950/50 my-4"
-          src={WEATHER_API_IMG_URL}
-          alt="Weather image"
-        />
-        <div className="p-4 bg-blue-100 rounded-md space-y-2 shadow-lg shadow-blue-950/50 mx-4 flex flex-col justify-center items-center text-wrap font-medium text-lg">
-          <h2 className="flex items-center gap-2">
-            City : {name} - {description}
-            <img
-              className="h-14 w-14 rounded-full shadow-sm"
-              src={iconUrl}
-              alt="Weather icon"
-            />
-          </h2>
-          <h3>Temperature : {temp}</h3>
-          <h3>Minimum Temperature : {temp_min}</h3>
-          <h3>Maximum Temperature : {temp_max}</h3>
-          <h3>Feels Like : {feels_like}</h3>
-          <h3>Humidity : {humidity}</h3>
-        </div>
+    <div
+      className=" flex flex-col justify-center items-center max-w-auto mx-auto"
+      // style={{ width: "100%", minHeight: "400px" }}
+    >
+      <img
+        src={bgFile}
+        alt="Weather background"
+        className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
+        style={{ zIndex: 0 }}
+      />
+      <img
+        className="h-40 w-40 rounded-full bg-blue-100 shadow-lg shadow-blue-950/50 my-4"
+        src={WEATHER_API_IMG_URL}
+        alt="Weather image"
+      />
+      <div className="p-4 bg-blue-100 rounded-md space-y-2 shadow-lg shadow-blue-950/50 mx-4 flex flex-col justify-center items-center text-wrap font-medium text-lg">
+        <h2 className="flex items-center gap-2">
+          City : {name} - {description}
+          <img
+            className="h-14 w-14 rounded-full shadow-sm"
+            src={iconUrl}
+            alt="Weather icon"
+          />
+        </h2>
+        <h3>Temperature : {temp}</h3>
+        <h3>Minimum Temperature : {temp_min}</h3>
+        <h3>Maximum Temperature : {temp_max}</h3>
+        <h3>Feels Like : {feels_like}</h3>
+        <h3>Humidity : {humidity}</h3>
       </div>
-    
+    </div>
   );
 };
 

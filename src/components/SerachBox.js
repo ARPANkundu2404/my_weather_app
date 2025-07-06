@@ -62,6 +62,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
         humidity: item.main.humidity,
         desc: item.weather[0].description,
         icon: item.weather[0].icon,
+        
       }));
 
       setForecastInfo(forecastList);
@@ -85,6 +86,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
         feels_like: jsonResponse.main.feels_like,
         icon: jsonResponse.weather[0].icon,
         description: jsonResponse.weather[0].description,
+        main: jsonResponse.weather[0].main,
       };
 
       setWeatherInfo(Info);
