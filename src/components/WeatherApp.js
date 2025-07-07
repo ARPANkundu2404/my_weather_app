@@ -6,12 +6,14 @@ import { useSwipeable } from "react-swipeable";
 import TrendChart from "./TrendChart";
 import AQICard from "./AQICard";
 import { WEATHER_BG_MAP, DEFAULT_BG } from "../utils/weatherBgMap";
+import AlertSettings from "./AlertSettings";
 
 const WeatherApp = () => {
   const [weatherInfo, setWeatherInfo] = useState({});
   const [forecastInfo, setForecastInfo] = useState([]);
   const [aqiInfo, setAqiInfo] = useState(null);
   const [activeTab, setActiveTab] = useState("current");
+  const [alertSettings, setAlertSettings] = useState(false);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setActiveTab("forecast"),
@@ -25,7 +27,7 @@ const WeatherApp = () => {
   return (
     <>
       <div
-        className="min-h-screen bg-gradient-to-tl from-blue-200 to-blue-50 p-4"
+        className="min-h-screen w-full bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${bgFile})` }}
       >
         <div className="backdrop-blur-sm bg-blue-50/40 min-h-screen p-4">
@@ -37,7 +39,10 @@ const WeatherApp = () => {
 
           <div className="flex justify-center gap-4 my-4">
             <button
-              onClick={() => setActiveTab("current")}
+              onClick={() => {
+                setActiveTab("current");
+                setAlertSettings(false);
+              }}
               className={`px-4 py-2 rounded-full font-semibold transition ${
                 activeTab === "current"
                   ? "bg-blue-600 text-white"
@@ -47,7 +52,10 @@ const WeatherApp = () => {
               🌤️ Current
             </button>
             <button
-              onClick={() => setActiveTab("forecast")}
+              onClick={() => {
+                setActiveTab("forecast");
+                setAlertSettings(false);
+              }}
               className={`px-4 py-2 rounded-full font-semibold transition ${
                 activeTab === "forecast"
                   ? "bg-blue-600 text-white"
@@ -56,20 +64,35 @@ const WeatherApp = () => {
             >
               📆 Forecast
             </button>
+            <button
+              onClick={() => setAlertSettings(true)}
+              className="p-2 rounded-full font-semibold bg-blue-400 text-white shadow transition hover:bg-blue-600"
+            >
+              🧷
+            </button>
           </div>
 
           <div {...handlers}>
-            {activeTab === "current" && (
+            {alertSettings ? (
+              <AlertSettings onClose= {() => setAlertSettings(false)} />
+            ) : (
               <>
-                <WeatherCard Info={weatherInfo} />
+                {activeTab === "current" && (
+                  <>
+                    <WeatherCard Info={weatherInfo} />
 
-                <AQICard aqi={aqiInfo?.aqi} components={aqiInfo?.components} />
-              </>
-            )}
-            {activeTab === "forecast" && (
-              <>
-                <ForecastCard forecast={forecastInfo} />{" "}
-                <TrendChart forecast={forecastInfo} />
+                    <AQICard
+                      aqi={aqiInfo?.aqi}
+                      components={aqiInfo?.components}
+                    />
+                  </>
+                )}
+                {activeTab === "forecast" && (
+                  <>
+                    <ForecastCard forecast={forecastInfo} />{" "}
+                    <TrendChart forecast={forecastInfo} />
+                  </>
+                )}
               </>
             )}
           </div>
