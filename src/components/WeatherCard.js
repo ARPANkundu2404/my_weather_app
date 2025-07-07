@@ -1,7 +1,5 @@
 import { WEATHER_ICON_URL } from "../utils/constant";
 import { WEATHER_API_IMG_URL } from "../utils/constant";
-import { WEATHER_BG_MAP } from "../utils/weatherBgMap";
-
 
 const WeatherCard = ({ Info }) => {
   if (!Info || Object.keys(Info).length === 0) {
@@ -28,29 +26,8 @@ const WeatherCard = ({ Info }) => {
 
   const iconUrl = `${WEATHER_ICON_URL}${icon}@2x.png`;
 
-  const weatherKey = main;
-  const bgFile = WEATHER_BG_MAP[weatherKey] || defaultbg;
-  // console.log(
-  //   "Weather key:",
-  //   weatherKey,
-  //   "Background file:",
-  //   bgFile,
-  //   "typeoff bgFile:",
-  //   typeof bgFile
-  // );
-  // console.log("Direct import cloudsTest:", cloudsTest);
-
   return (
-    <div
-      className=" flex flex-col justify-center items-center max-w-auto mx-auto"
-      // style={{ width: "100%", minHeight: "400px" }}
-    >
-      <img
-        src={bgFile}
-        alt="Weather background"
-        className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
-        style={{ zIndex: 0 }}
-      />
+    <div className=" flex flex-col justify-center items-center max-w-auto mx-auto">
       <img
         className="h-40 w-40 rounded-full bg-blue-100 shadow-lg shadow-blue-950/50 my-4"
         src={WEATHER_API_IMG_URL}

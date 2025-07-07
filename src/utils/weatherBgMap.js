@@ -19,5 +19,7 @@ export const WEATHER_BG_MAP = {
 
   Tornado:
     "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjRtcjhzdzlpajlnd2t2dXowMjlydWU4eGRlaHZoem9kbW82OHhucSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qRY3cPYRkyQh2/giphy.gif",
-  defaultBg: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjhkaHI1bHowdWttaGo1eHRqOGpiaGdtZWpqbzN5Y3ZkMno1aDZhMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjHGZkrolm9UgvM4/giphy.gif",
-};
+  };
+
+  export const DEFAULT_BG = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjhkaHI1bHowdWttaGo1eHRqOGpiaGdtZWpqbzN5Y3ZkMno1aDZhMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjHGZkrolm9UgvM4/giphy.gif";
+
