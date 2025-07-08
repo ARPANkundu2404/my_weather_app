@@ -7,6 +7,7 @@ import TrendChart from "./TrendChart";
 import AQICard from "./AQICard";
 import { WEATHER_BG_MAP, DEFAULT_BG } from "../utils/weatherBgMap";
 import AlertSettings from "./AlertSettings";
+import WeatherTips from "./WeatherTips";
 
 const WeatherApp = () => {
   const [weatherInfo, setWeatherInfo] = useState({});
@@ -74,12 +75,13 @@ const WeatherApp = () => {
 
           <div {...handlers}>
             {alertSettings ? (
-              <AlertSettings onClose= {() => setAlertSettings(false)} />
+              <AlertSettings onClose={() => setAlertSettings(false)} />
             ) : (
               <>
                 {activeTab === "current" && (
                   <>
                     <WeatherCard Info={weatherInfo} />
+                    <WeatherTips weatherType={weatherInfo?.main} />
 
                     <AQICard
                       aqi={aqiInfo?.aqi}

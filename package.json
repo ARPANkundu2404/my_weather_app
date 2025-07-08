@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/ARPANkundu2404/My-Weather-App#readme",
   "dependencies": {
+    "axios": "^1.10.0",
     "chart.js": "^4.5.0",
     "react": "^19.1.0",
     "react-chartjs-2": "^5.3.0",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
+    "buffer": "^6.0.3",
     "parcel": "^2.14.4",
     "postcss": "^8.5.3",
     "process": "^0.11.10",
