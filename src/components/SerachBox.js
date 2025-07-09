@@ -9,10 +9,37 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
 
   const handleOnChage = (event) => {
-    setCity(event.target.value);
+    const input = event.target.value;
+    setCity(input);
     setError("");
+
+    const history = JSON.parse(localStorage.getItem("searchHistory")) || [];
+    const filtered = history.filter((c) =>
+      c.toLowerCase().startsWith(input.toLowerCase())
+    );
+    setSuggestions(filtered);
+  };
+
+  const handleFocus = () => {
+    const history = JSON.parse(localStorage.getItem("searchHistory")) || [];
+    setSuggestions(history);
+  };
+
+  const handleSuggestionClick = (suggestedCity) => {
+    setCity(suggestedCity);
+    setSuggestions([]);
+  };
+
+  const saveToHistory = (city) => {
+    const history = JSON.parse(localStorage.getItem("searchHistory")) || [];
+    const updatedHistory = [city, ...history.filter((c) => c !== city)].slice(
+      0,
+      5
+    );
+    localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
   };
 
   const fetchAQI = async (lat, lon) => {
@@ -62,7 +89,6 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
         humidity: item.main.humidity,
         desc: item.weather[0].description,
         icon: item.weather[0].icon,
-        
       }));
 
       setForecastInfo(forecastList);
@@ -91,6 +117,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
 
       setWeatherInfo(Info);
       setError("");
+      saveToHistory(city);
 
       if (
         jsonResponse.coord &&
@@ -165,8 +192,10 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
       return;
     }
     fetchWeatherInfo();
-    setCity("");
+    setCity(""); // clear input
+    setSuggestions([]); // hide suggestions
   };
+
   return (
     <div className="w-full max-w-md mx-auto mt-8 bg-gradient-to-br from-blue-100 to-blue-300 rounded-xl shadow-xl p-6">
       <h1 className="flex justify-center items-center font-bold text-3xl text-blue-700 mb-6 drop-shadow">
@@ -178,14 +207,31 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
         autoComplete="off"
       >
         <div className="flex items-center gap-2">
-          <input
-            className="flex-1 border-2 border-blue-400 rounded-lg p-3 text-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            type="text"
-            value={city}
-            name="city"
-            placeholder="Enter city name"
-            onChange={handleOnChage}
-          />
+          <div className="flex-1 relative">
+            <input
+              className="w-full border-2 border-blue-400 rounded-lg p-3 text-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              type="text"
+              value={city}
+              name="city"
+              placeholder="Enter city name"
+              onChange={handleOnChage}
+              onFocus={handleFocus}
+            />
+            {suggestions.length > 0 && (
+              <div className="absolute left-0 right-0 bg-white border border-gray-300 rounded shadow-md z-10 mt-1 max-h-40 overflow-y-auto">
+                {suggestions.map((suggestedCity, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleSuggestionClick(suggestedCity)}
+                    className="px-4 py-2 cursor-pointer hover:bg-blue-100"
+                  >
+                    {suggestedCity}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           <button
             type="button"
             onClick={handleCurrentLocationclick}
