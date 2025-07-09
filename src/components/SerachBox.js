@@ -118,6 +118,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
       setWeatherInfo(Info);
       setError("");
       saveToHistory(city);
+      localStorage.setItem("searchCity", city);
 
       if (
         jsonResponse.coord &&

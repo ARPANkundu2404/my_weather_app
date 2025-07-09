@@ -1,0 +1,16 @@
+{
+  "weather_today": "आज का मौसम",
+  "search": "खोजें",
+  "enter_city": "शहर का नाम दर्ज करें",
+  "temperature": "तापमान",
+  "humidity": "नमी",
+  "wind_speed": "हवा की गति",
+  "pressure": "दबाव",
+  "visibility": "दृश्यता",
+  "sunrise": "सूर्योदय",
+  "sunset": "सूर्यास्त",
+  "feels_like": "महसूस होता है",
+  "weather_history": "मौसम इतिहास",
+  "search_history": "खोज इतिहास",
+  "no_data_found": "कोई डेटा नहीं मिला"
+}

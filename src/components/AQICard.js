@@ -1,4 +1,4 @@
-import { getAQILabel } from "../utils/constant";
+import { getAQILabel } from "../utils/aqiLabel";
 
 const AQICard = ({ aqi, components }) => {
   if (!aqi) return null;

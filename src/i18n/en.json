@@ -1,0 +1,18 @@
+{
+  "weather_today": "Weather Today",
+  "search": "Search",
+  "enter_city": "Enter city name",
+  "temperature": "Temperature",
+  "humidity": "Humidity",
+  "wind_speed": "Wind Speed",
+  "pressure": "Pressure",
+  "visibility": "Visibility",
+  "sunrise": "Sunrise",
+  "sunset": "Sunset",
+  "weather_history": "Weather History",
+  "history_chart": "History Chart",
+  "search_history": "Search History",
+  "no_data_found": "No data found",
+  "error_fetching_data": "Error fetching data. Please try again.",
+  "clear_history": "Clear History"
+}

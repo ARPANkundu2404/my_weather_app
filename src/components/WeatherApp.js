@@ -8,6 +8,8 @@ import AQICard from "./AQICard";
 import { WEATHER_BG_MAP, DEFAULT_BG } from "../utils/weatherBgMap";
 import AlertSettings from "./AlertSettings";
 import WeatherTips from "./WeatherTips";
+import HistoryChart from "./HistoricalChart";
+import SettingsPage from "./SettingPage";
 
 const WeatherApp = () => {
   const [weatherInfo, setWeatherInfo] = useState({});
@@ -15,10 +17,12 @@ const WeatherApp = () => {
   const [aqiInfo, setAqiInfo] = useState(null);
   const [activeTab, setActiveTab] = useState("current");
   const [alertSettings, setAlertSettings] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setActiveTab("forecast"),
     onSwipedRight: () => setActiveTab("current"),
+    onSwiped: () => setActiveTab("history"),
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
@@ -37,6 +41,17 @@ const WeatherApp = () => {
             setForecastInfo={setForecastInfo}
             setAqiInfo={setAqiInfo}
           />
+
+          <button
+            onClick={() => {
+              setShowSettings(true);
+              setAlertSettings(false);
+            }}
+            className="absolute top-4 right-4 p-2 bg-white text-blue-600 rounded-full shadow-md hover:bg-blue-100 transition"
+            title="Settings"
+          >
+            ⚙️
+          </button>
 
           <div className="flex justify-center gap-4 my-4">
             <button
@@ -66,6 +81,19 @@ const WeatherApp = () => {
               📆 Forecast
             </button>
             <button
+              onClick={() => {
+                setActiveTab("history");
+                setAlertSettings(false);
+              }}
+              className={`px-4 py-2 rounded-full font-semibold transition ${
+                activeTab === "history"
+                  ? "bg-blue-600 text-white"
+                  : "bg-white text-blue-600 border border-blue-400"
+              }`}
+            >
+              📊History
+            </button>
+            <button
               onClick={() => setAlertSettings(true)}
               className="p-2 rounded-full font-semibold bg-blue-400 text-white shadow transition hover:bg-blue-600"
             >
@@ -74,7 +102,9 @@ const WeatherApp = () => {
           </div>
 
           <div {...handlers}>
-            {alertSettings ? (
+            { showSettings ? (
+              <SettingsPage onClose={() => setShowSettings(false)} />
+            ) : alertSettings ? (
               <AlertSettings onClose={() => setAlertSettings(false)} />
             ) : (
               <>
@@ -93,6 +123,11 @@ const WeatherApp = () => {
                   <>
                     <ForecastCard forecast={forecastInfo} />{" "}
                     <TrendChart forecast={forecastInfo} />
+                  </>
+                )}
+                {activeTab === "history" && (
+                  <>
+                    <HistoryChart />
                   </>
                 )}
               </>

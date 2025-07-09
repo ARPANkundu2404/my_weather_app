@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import WeatherApp from "./components/WeatherApp";
 import "./index.css";
+import "./i18n";
 
 const App = () => {
   return (
