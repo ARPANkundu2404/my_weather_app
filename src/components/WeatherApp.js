@@ -1,6 +1,6 @@
 import SearchBox from "./SerachBox";
 import WeatherCard from "./WeatherCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ForecastCard from "./ForecastCard";
 import { useSwipeable } from "react-swipeable";
 import TrendChart from "./TrendChart";
@@ -29,6 +29,14 @@ const WeatherApp = () => {
 
   const bgFile = WEATHER_BG_MAP[weatherInfo?.main] || DEFAULT_BG;
 
+  useEffect(() => {
+  const dark = localStorage.getItem("darkMode") === "true";
+  const large = localStorage.getItem("largeText") === "true";
+  const root = document.documentElement;
+  if (dark) root.classList.add("dark");
+  if (large) root.classList.add("large-text");
+}, []);
+
   return (
     <>
       <div
@@ -36,11 +44,13 @@ const WeatherApp = () => {
         style={{ backgroundImage: `url(${bgFile})` }}
       >
         <div className="backdrop-blur-sm bg-blue-50/40 min-h-screen p-4">
-          <SearchBox
-            setWeatherInfo={setWeatherInfo}
-            setForecastInfo={setForecastInfo}
-            setAqiInfo={setAqiInfo}
-          />
+          {!showSettings && (
+            <SearchBox
+              setWeatherInfo={setWeatherInfo}
+              setForecastInfo={setForecastInfo}
+              setAqiInfo={setAqiInfo}
+            />
+          )}
 
           <button
             onClick={() => {
@@ -102,7 +112,7 @@ const WeatherApp = () => {
           </div>
 
           <div {...handlers}>
-            { showSettings ? (
+            {showSettings ? (
               <SettingsPage onClose={() => setShowSettings(false)} />
             ) : alertSettings ? (
               <AlertSettings onClose={() => setAlertSettings(false)} />
