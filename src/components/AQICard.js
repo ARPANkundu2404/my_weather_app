@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from "framer-motion"
 import { getAQILabel } from "../utils/aqiLabel"
 
@@ -5,28 +7,31 @@ const AQICard = ({ aqi, components }) => {
   if (!aqi) {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="flex flex-col items-center justify-center p-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30"
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="w-full max-w-4xl mx-auto p-8 sm:p-12 bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900 backdrop-blur-xl rounded-3xl border border-blue-200/50 dark:border-blue-800/30 shadow-2xl"
       >
-        <motion.div
-          animate={{
-            rotate: [0, 10, -10, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatDelay: 2,
-          }}
-          className="text-6xl mb-4"
-        >
-          🌬️
-        </motion.div>
-        <h3 className="text-2xl font-bold text-gray-600 dark:text-gray-300 text-center">
-          No air quality data available
-        </h3>
+        <div className="text-center">
+          <motion.div
+            animate={{
+              rotate: [0, 5, -5, 0],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatDelay: 2,
+              ease: "easeInOut",
+            }}
+            className="text-6xl sm:text-8xl mb-6 text-blue-500 dark:text-blue-400"
+          >
+            🌬️
+          </motion.div>
+          <h3 className="text-2xl sm:text-3xl font-bold text-blue-900 dark:text-blue-100">
+            No air quality data available
+          </h3>
+        </div>
       </motion.div>
     )
   }
@@ -35,54 +40,90 @@ const AQICard = ({ aqi, components }) => {
   const healthAlert = aqi >= 4
 
   const pollutants = [
-    { name: "PM2.5", value: components?.pm2_5, unit: "µg/m³", icon: "🔴", color: "from-red-400 to-red-600" },
-    { name: "PM10", value: components?.pm10, unit: "µg/m³", icon: "🟠", color: "from-orange-400 to-orange-600" },
-    { name: "CO", value: components?.co, unit: "µg/m³", icon: "🟡", color: "from-yellow-400 to-yellow-600" },
-    { name: "NO₂", value: components?.no2, unit: "µg/m³", icon: "🔵", color: "from-blue-400 to-blue-600" },
-    { name: "O₃", value: components?.o3, unit: "µg/m³", icon: "🟢", color: "from-green-400 to-green-600" },
-    { name: "SO₂", value: components?.so2, unit: "µg/m³", icon: "🟣", color: "from-purple-400 to-purple-600" },
+    {
+      name: "PM2.5",
+      value: components?.pm2_5,
+      unit: "µg/m³",
+      icon: "🔴",
+      bgColor: "from-red-100 to-red-200 dark:from-red-900/30 dark:to-red-800/20",
+    },
+    {
+      name: "PM10",
+      value: components?.pm10,
+      unit: "µg/m³",
+      icon: "🟠",
+      bgColor: "from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/20",
+    },
+    {
+      name: "CO",
+      value: components?.co,
+      unit: "µg/m³",
+      icon: "🟡",
+      bgColor: "from-yellow-100 to-yellow-200 dark:from-yellow-900/30 dark:to-yellow-800/20",
+    },
+    {
+      name: "NO₂",
+      value: components?.no2,
+      unit: "µg/m³",
+      icon: "🔵",
+      bgColor: "from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/20",
+    },
+    {
+      name: "O₃",
+      value: components?.o3,
+      unit: "µg/m³",
+      icon: "🟢",
+      bgColor: "from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/20",
+    },
+    {
+      name: "SO₂",
+      value: components?.so2,
+      unit: "µg/m³",
+      icon: "🟣",
+      bgColor: "from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/20",
+    },
   ]
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="w-full max-w-6xl mx-auto"
     >
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 overflow-hidden">
+      <div className="bg-gradient-to-br from-white/90 via-blue-50/80 to-blue-100/70 dark:from-gray-800/90 dark:via-gray-700/80 dark:to-blue-900/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-blue-200/50 dark:border-blue-700/30 overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-teal-500 via-cyan-600 to-blue-600 p-6">
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 p-6">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
             className="flex items-center justify-between"
           >
             <div>
               <h3 className="text-2xl lg:text-3xl font-bold text-white flex items-center">
                 <motion.span
                   className="mr-4 text-3xl"
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatDelay: 3 }}
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, repeatDelay: 3, ease: "easeInOut" }}
                 >
                   🌬️
                 </motion.span>
                 Air Quality Index
               </h3>
-              <p className="text-teal-100 mt-2">Real-time air pollution monitoring</p>
+              <p className="text-blue-100 mt-2">Real-time air pollution monitoring</p>
             </div>
             <div className="text-center">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+                transition={{ delay: 0.4, type: "spring", stiffness: 200, ease: "easeOut" }}
                 className="flex items-center space-x-3"
               >
                 <span className="text-4xl">{emoji}</span>
                 <div>
                   <div className="text-4xl font-bold text-white">{aqi}</div>
-                  <div className="text-sm font-semibold text-teal-100">{label}</div>
+                  <div className="text-sm font-semibold text-blue-100">{label}</div>
                 </div>
               </motion.div>
             </div>
@@ -93,10 +134,10 @@ const AQICard = ({ aqi, components }) => {
           {/* Health Alert */}
           {healthAlert && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="mb-6 p-4 bg-red-50/80 dark:bg-red-900/20 border border-red-200/50 dark:border-red-800/50 rounded-2xl backdrop-blur-sm"
+              transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
+              className="mb-6 p-4 bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/10 border border-red-200/50 dark:border-red-800/30 rounded-2xl backdrop-blur-sm"
             >
               <div className="flex items-start">
                 <div className="flex-shrink-0">
@@ -124,23 +165,21 @@ const AQICard = ({ aqi, components }) => {
             {pollutants.map((pollutant, index) => (
               <motion.div
                 key={pollutant.name}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + index * 0.1, duration: 0.6 }}
-                whileHover={{ scale: 1.05, y: -3 }}
-                className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-2xl p-4 text-center shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer"
+                transition={{ delay: 0.4 + index * 0.1, duration: 0.6, ease: "easeOut" }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className={`bg-gradient-to-br ${pollutant.bgColor} backdrop-blur-sm rounded-2xl p-4 text-center shadow-md hover:shadow-lg transition-all duration-500 ease-in-out group cursor-pointer border border-white/20 dark:border-gray-600/20`}
               >
                 <motion.div
-                  className="text-2xl mb-2 group-hover:scale-110 transition-transform duration-300"
-                  whileHover={{ rotate: [0, -10, 10, 0] }}
+                  className="text-2xl mb-2 group-hover:scale-110 transition-transform duration-300 ease-in-out"
+                  whileHover={{ rotate: [0, -5, 5, 0] }}
                   transition={{ duration: 0.5 }}
                 >
                   {pollutant.icon}
                 </motion.div>
                 <div className="font-bold text-gray-800 dark:text-white text-sm mb-1">{pollutant.name}</div>
-                <div className={`text-lg font-bold bg-gradient-to-r ${pollutant.color} bg-clip-text text-transparent`}>
-                  {pollutant.value || "N/A"}
-                </div>
+                <div className="text-lg font-bold text-gray-700 dark:text-gray-200">{pollutant.value || "N/A"}</div>
                 <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{pollutant.unit}</div>
               </motion.div>
             ))}
@@ -150,13 +189,13 @@ const AQICard = ({ aqi, components }) => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl border border-blue-200/50 dark:border-blue-800/50"
+            transition={{ delay: 0.7, duration: 0.6, ease: "easeOut" }}
+            className={`p-6 ${color} ${textColor} rounded-2xl border border-opacity-50 shadow-lg`}
           >
             <div className="flex items-start">
               <div className="flex-shrink-0">
                 {aqi <= 2 ? (
-                  <svg className="h-6 w-6 text-green-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-6 w-6 text-green-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -165,7 +204,7 @@ const AQICard = ({ aqi, components }) => {
                     />
                   </svg>
                 ) : (
-                  <svg className="h-6 w-6 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-6 w-6 text-red-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -176,8 +215,8 @@ const AQICard = ({ aqi, components }) => {
                 )}
               </div>
               <div className="ml-3">
-                <h4 className="font-bold text-gray-800 dark:text-white text-lg">Air Quality Status: {label}</h4>
-                <p className="text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+                <h4 className="font-bold text-lg">Air Quality Status: {label}</h4>
+                <p className="mt-1 leading-relaxed">
                   {aqi <= 2
                     ? "Air quality is good. Perfect for outdoor activities and exercise!"
                     : aqi === 3

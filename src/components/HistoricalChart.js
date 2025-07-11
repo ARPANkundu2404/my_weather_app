@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Line } from "react-chartjs-2"
@@ -87,11 +89,11 @@ const HistoryChart = () => {
       {
         label: "Humidity (%)",
         data: historyData.map((h) => h.humidity),
-        borderColor: "rgb(34, 197, 94)",
-        backgroundColor: "rgba(34, 197, 94, 0.1)",
+        borderColor: "rgb(37, 99, 235)",
+        backgroundColor: "rgba(37, 99, 235, 0.1)",
         tension: 0.4,
         fill: true,
-        pointBackgroundColor: "rgb(34, 197, 94)",
+        pointBackgroundColor: "rgb(37, 99, 235)",
         pointBorderColor: "white",
         pointBorderWidth: 3,
         pointRadius: 4,
@@ -113,14 +115,14 @@ const HistoryChart = () => {
             size: 14,
             weight: "600",
           },
-          color: document.documentElement.classList.contains("dark") ? "#ffffff" : "#374151",
+          color: document.documentElement.classList.contains("dark") ? "#dbeafe" : "#1e40af",
         },
       },
       tooltip: {
-        backgroundColor: "rgba(0, 0, 0, 0.9)",
+        backgroundColor: "rgba(30, 64, 175, 0.95)",
         titleColor: "#ffffff",
         bodyColor: "#ffffff",
-        borderColor: "rgba(255, 255, 255, 0.2)",
+        borderColor: "rgba(59, 130, 246, 0.5)",
         borderWidth: 1,
         cornerRadius: 12,
         displayColors: true,
@@ -130,12 +132,12 @@ const HistoryChart = () => {
     scales: {
       x: {
         grid: {
-          color: "rgba(156, 163, 175, 0.2)",
+          color: "rgba(59, 130, 246, 0.1)",
           drawBorder: false,
         },
         ticks: {
           maxTicksLimit: 12,
-          color: document.documentElement.classList.contains("dark") ? "#9CA3AF" : "#6B7280",
+          color: document.documentElement.classList.contains("dark") ? "#93c5fd" : "#1e40af",
           font: {
             size: 11,
             weight: "500",
@@ -145,11 +147,11 @@ const HistoryChart = () => {
       },
       y: {
         grid: {
-          color: "rgba(156, 163, 175, 0.2)",
+          color: "rgba(59, 130, 246, 0.1)",
           drawBorder: false,
         },
         ticks: {
-          color: document.documentElement.classList.contains("dark") ? "#9CA3AF" : "#6B7280",
+          color: document.documentElement.classList.contains("dark") ? "#93c5fd" : "#1e40af",
           font: {
             size: 12,
             weight: "500",
@@ -170,34 +172,34 @@ const HistoryChart = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="w-full max-w-7xl mx-auto"
     >
-      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 overflow-hidden">
+      <div className="bg-gradient-to-br from-white/90 via-blue-50/80 to-blue-100/70 dark:from-gray-800/90 dark:via-gray-700/80 dark:to-blue-900/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-blue-200/50 dark:border-blue-700/30 overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 p-8">
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 p-6 sm:p-8">
           <div className="flex items-center space-x-4">
             <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatDelay: 3 }}
+              animate={{ rotate: [0, 5, -5, 0] }}
+              transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, repeatDelay: 4, ease: "easeInOut" }}
               className="p-3 bg-white/20 rounded-2xl"
             >
               <span className="text-3xl">📊</span>
             </motion.div>
             <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-white">Historical Weather Trends</h2>
-              <p className="text-purple-100 mt-2 text-lg">Analyze weather patterns over time</p>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">Historical Weather Trends</h2>
+              <p className="text-blue-100 mt-2 text-base sm:text-lg">Analyze weather patterns over time</p>
             </div>
           </div>
         </div>
 
         {/* Controls */}
-        <div className="p-8 border-b border-gray-200/50 dark:border-gray-700/50">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="p-6 sm:p-8 border-b border-blue-200/30 dark:border-blue-700/20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             <div>
-              <label className="block text-lg font-bold text-gray-700 dark:text-gray-300 mb-3">
+              <label className="block text-base sm:text-lg font-bold text-blue-900 dark:text-blue-100 mb-3">
                 <span className="flex items-center">
                   <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -212,7 +214,7 @@ const HistoryChart = () => {
               </label>
               <input
                 type="date"
-                className="w-full px-4 py-4 bg-white dark:bg-gray-700 border-2 border-gray-300/50 dark:border-gray-600/50 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 text-gray-800 dark:text-white text-lg"
+                className="w-full px-4 py-3 sm:py-4 bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm border-2 border-blue-200/60 dark:border-blue-700/40 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-500 ease-in-out text-blue-900 dark:text-blue-100 text-base sm:text-lg"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
                 max={new Date().toISOString().split("T")[0]}
@@ -220,7 +222,7 @@ const HistoryChart = () => {
             </div>
 
             <div>
-              <label className="block text-lg font-bold text-gray-700 dark:text-gray-300 mb-3">
+              <label className="block text-base sm:text-lg font-bold text-blue-900 dark:text-blue-100 mb-3">
                 <span className="flex items-center">
                   <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -235,7 +237,7 @@ const HistoryChart = () => {
               </label>
               <input
                 type="date"
-                className="w-full px-4 py-4 bg-white dark:bg-gray-700 border-2 border-gray-300/50 dark:border-gray-600/50 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 text-gray-800 dark:text-white text-lg"
+                className="w-full px-4 py-3 sm:py-4 bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm border-2 border-blue-200/60 dark:border-blue-700/40 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-500 ease-in-out text-blue-900 dark:text-blue-100 text-base sm:text-lg"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 max={new Date().toISOString().split("T")[0]}
@@ -244,24 +246,24 @@ const HistoryChart = () => {
 
             <div className="flex items-end">
               <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={fetchHistory}
                 disabled={loading || !startDate || !endDate}
-                className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-500 text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 disabled:cursor-not-allowed flex items-center justify-center space-x-3"
+                className="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-blue-400 disabled:to-blue-500 text-white rounded-2xl font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-500 ease-in-out disabled:cursor-not-allowed flex items-center justify-center space-x-3"
               >
                 {loading ? (
                   <>
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                      className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
+                      className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white border-t-transparent rounded-full"
                     />
                     <span>Loading...</span>
                   </>
                 ) : (
                   <>
-                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -281,10 +283,11 @@ const HistoryChart = () => {
         <AnimatePresence>
           {error && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="p-6 mx-8 mt-6 bg-red-50/80 dark:bg-red-900/20 border border-red-200/50 dark:border-red-800/50 rounded-2xl backdrop-blur-sm"
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="p-6 mx-6 sm:mx-8 mt-6 bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/10 border border-red-200/50 dark:border-red-800/30 rounded-2xl backdrop-blur-sm"
             >
               <div className="flex items-center">
                 <svg className="h-6 w-6 text-red-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -295,7 +298,7 @@ const HistoryChart = () => {
                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <span className="text-red-700 dark:text-red-400 font-bold text-lg">{error}</span>
+                <span className="text-red-700 dark:text-red-400 font-bold text-base sm:text-lg">{error}</span>
               </div>
             </motion.div>
           )}
@@ -304,63 +307,63 @@ const HistoryChart = () => {
         {/* Chart */}
         {historyData.length > 0 && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="p-8"
+            transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+            className="p-6 sm:p-8"
           >
-            <div className="h-96 w-full mb-8">
+            <div className="h-80 sm:h-96 w-full mb-8">
               <Line data={chartData} options={chartOptions} />
             </div>
 
             {/* Statistics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="text-center p-6 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-200/50 dark:border-blue-800/50"
+                transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
+                className="text-center p-4 sm:p-6 bg-gradient-to-br from-white/80 via-blue-50/60 to-blue-100/50 dark:from-gray-700/80 dark:via-gray-600/60 dark:to-blue-800/50 backdrop-blur-sm rounded-2xl border border-blue-200/40 dark:border-blue-700/20"
               >
-                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                <div className="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-blue-300 mb-2">
                   {Math.round(historyData.reduce((sum, item) => sum + item.temp, 0) / historyData.length)}°C
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 font-bold">Average Temp</div>
+                <div className="text-sm font-bold text-blue-600 dark:text-blue-400">Average Temp</div>
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-                className="text-center p-6 bg-green-50 dark:bg-green-900/20 rounded-2xl border border-green-200/50 dark:border-green-800/50"
+                transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
+                className="text-center p-4 sm:p-6 bg-gradient-to-br from-white/80 via-blue-50/60 to-blue-100/50 dark:from-gray-700/80 dark:via-gray-600/60 dark:to-blue-800/50 backdrop-blur-sm rounded-2xl border border-blue-200/40 dark:border-blue-700/20"
               >
-                <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+                <div className="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-blue-300 mb-2">
                   {Math.round(historyData.reduce((sum, item) => sum + item.humidity, 0) / historyData.length)}%
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 font-bold">Average Humidity</div>
+                <div className="text-sm font-bold text-blue-600 dark:text-blue-400">Average Humidity</div>
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.5 }}
-                className="text-center p-6 bg-red-50 dark:bg-red-900/20 rounded-2xl border border-red-200/50 dark:border-red-800/50"
+                transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
+                className="text-center p-4 sm:p-6 bg-gradient-to-br from-white/80 via-blue-50/60 to-blue-100/50 dark:from-gray-700/80 dark:via-gray-600/60 dark:to-blue-800/50 backdrop-blur-sm rounded-2xl border border-blue-200/40 dark:border-blue-700/20"
               >
-                <div className="text-3xl font-bold text-red-600 dark:text-red-400 mb-2">
+                <div className="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-blue-300 mb-2">
                   {Math.max(...historyData.map((item) => item.temp))}°C
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 font-bold">Max Temp</div>
+                <div className="text-sm font-bold text-blue-600 dark:text-blue-400">Max Temp</div>
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-                className="text-center p-6 bg-purple-50 dark:bg-purple-900/20 rounded-2xl border border-purple-200/50 dark:border-purple-800/50"
+                transition={{ delay: 0.7, duration: 0.5, ease: "easeOut" }}
+                className="text-center p-4 sm:p-6 bg-gradient-to-br from-white/80 via-blue-50/60 to-blue-100/50 dark:from-gray-700/80 dark:via-gray-600/60 dark:to-blue-800/50 backdrop-blur-sm rounded-2xl border border-blue-200/40 dark:border-blue-700/20"
               >
-                <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
+                <div className="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-blue-300 mb-2">
                   {Math.min(...historyData.map((item) => item.temp))}°C
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 font-bold">Min Temp</div>
+                <div className="text-sm font-bold text-blue-600 dark:text-blue-400">Min Temp</div>
               </motion.div>
             </div>
           </motion.div>
@@ -371,24 +374,28 @@ const HistoryChart = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center p-16"
+            transition={{ ease: "easeOut" }}
+            className="flex flex-col items-center justify-center p-12 sm:p-16"
           >
             <motion.div
               animate={{
-                rotate: [0, 10, -10, 0],
-                scale: [1, 1.1, 1],
+                rotate: [0, 5, -5, 0],
+                scale: [1, 1.05, 1],
               }}
               transition={{
-                duration: 3,
+                duration: 4,
                 repeat: Number.POSITIVE_INFINITY,
-                repeatDelay: 2,
+                repeatDelay: 3,
+                ease: "easeInOut",
               }}
-              className="text-8xl mb-6"
+              className="text-6xl sm:text-8xl mb-6 text-blue-500 dark:text-blue-400"
             >
               📊
             </motion.div>
-            <h3 className="text-3xl font-bold text-gray-600 dark:text-gray-300 text-center mb-4">No Historical Data</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-lg text-center max-w-md">
+            <h3 className="text-2xl sm:text-3xl font-bold text-blue-900 dark:text-blue-100 text-center mb-4">
+              No Historical Data
+            </h3>
+            <p className="text-blue-700 dark:text-blue-300 text-base sm:text-lg text-center max-w-md">
               Select a date range and click "Load Data" to view historical weather trends for your searched city
             </p>
           </motion.div>

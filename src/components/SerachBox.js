@@ -202,47 +202,48 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -15 }}
+      initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="w-full max-w-2xl mx-auto"
     >
-      <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-8 border border-white/30 dark:border-gray-700/30">
+      <div className="bg-gradient-to-br from-white/90 via-blue-50/80 to-blue-100/70 dark:from-gray-800/90 dark:via-gray-700/80 dark:to-blue-900/70 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-8 border border-blue-200/50 dark:border-blue-700/30">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
+          transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
           className="text-center mb-6 sm:mb-8"
         >
           <motion.div
             animate={{
-              rotate: [0, 3, -3, 0],
+              rotate: [0, 2, -2, 0],
               scale: [1, 1.02, 1],
             }}
             transition={{
-              duration: 5,
+              duration: 6,
               repeat: Number.POSITIVE_INFINITY,
-              repeatDelay: 2,
+              repeatDelay: 3,
+              ease: "easeInOut",
             }}
-            className="text-4xl sm:text-6xl mb-3 sm:mb-4"
+            className="text-4xl sm:text-6xl mb-4 text-blue-600 dark:text-blue-400"
           >
             🌤️
           </motion.div>
-          <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 dark:from-blue-400 dark:via-purple-400 dark:to-blue-600 bg-clip-text text-transparent mb-2 leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-bold text-blue-900 dark:text-blue-100 mb-2">
             {t("weather_dashboard") || "Weather Dashboard"}
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-lg">
+          <p className="text-blue-700 dark:text-blue-300 text-sm sm:text-lg">
             {t("discover_weather") || "Discover weather conditions worldwide"}
           </p>
         </motion.div>
 
         <form onSubmit={handleOnSubmit} className="space-y-4 sm:space-y-6">
           <div className="relative">
-            <div className="flex gap-2 sm:gap-3">
+            <div className="flex gap-3">
               <div className="flex-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <svg
-                    className="h-5 w-5 sm:h-6 sm:w-6 text-gray-400 dark:text-gray-500"
+                    className="h-5 w-5 sm:h-6 sm:w-6 text-blue-500 dark:text-blue-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -257,7 +258,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
                 </div>
 
                 <input
-                  className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-base sm:text-lg bg-gray-50/90 dark:bg-gray-700/90 border-2 border-gray-200/60 dark:border-gray-600/60 rounded-xl sm:rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm"
+                  className="w-full pl-12 pr-4 py-3 sm:py-4 text-base sm:text-lg bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm border-2 border-blue-200/60 dark:border-blue-700/40 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-500 ease-in-out text-blue-900 dark:text-blue-100 placeholder-blue-600/60 dark:placeholder-blue-400/60"
                   type="text"
                   value={city}
                   name="city"
@@ -270,23 +271,23 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
                 <AnimatePresence>
                   {showSuggestions && suggestions.length > 0 && (
                     <motion.div
-                      initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                      initial={{ opacity: 0, y: -5, scale: 0.98 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute left-0 right-0 top-full mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200/60 dark:border-gray-600/60 rounded-xl sm:rounded-2xl shadow-xl z-50 max-h-48 overflow-y-auto"
+                      exit={{ opacity: 0, y: -5, scale: 0.98 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="absolute left-0 right-0 top-full mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-blue-200/60 dark:border-blue-700/40 rounded-2xl shadow-xl z-50 max-h-48 overflow-y-auto"
                     >
                       {suggestions.map((suggestedCity, index) => (
                         <motion.div
                           key={index}
-                          initial={{ opacity: 0, x: -8 }}
+                          initial={{ opacity: 0, x: -5 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 }}
+                          transition={{ delay: index * 0.05, ease: "easeOut" }}
                           onClick={() => handleSuggestionClick(suggestedCity)}
-                          className="flex items-center px-3 sm:px-4 py-2 sm:py-3 cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-700/60 transition-all duration-200 border-b border-gray-100/60 dark:border-gray-700/60 last:border-b-0 group"
+                          className="flex items-center px-4 py-3 cursor-pointer hover:bg-blue-50/80 dark:hover:bg-blue-900/20 transition-all duration-300 ease-in-out border-b border-blue-100/40 dark:border-blue-800/40 last:border-b-0 group"
                         >
                           <svg
-                            className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400 mr-2 sm:mr-3 group-hover:text-blue-500 transition-colors"
+                            className="h-4 w-4 text-blue-500 mr-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -298,7 +299,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
                               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                             />
                           </svg>
-                          <span className="text-sm sm:text-base text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          <span className="text-sm sm:text-base text-blue-900 dark:text-blue-100 group-hover:text-blue-700 dark:group-hover:text-blue-200 transition-colors duration-300">
                             {suggestedCity}
                           </span>
                         </motion.div>
@@ -314,7 +315,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
                 type="button"
                 onClick={handleCurrentLocationClick}
                 disabled={loading}
-                className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group flex-shrink-0"
+                className="p-3 sm:p-4 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-500 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed group flex-shrink-0"
                 title={t("use_location") || "Use my location"}
               >
                 {loading ? (
@@ -333,7 +334,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
                   </motion.div>
                 ) : (
                   <svg
-                    className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-105 transition-transform"
+                    className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-105 transition-transform duration-300"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -359,7 +360,7 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
           <motion.button
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
-            className="w-full p-3 sm:p-4 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white rounded-xl sm:rounded-2xl font-semibold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full p-3 sm:p-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-2xl font-semibold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-500 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
             type="submit"
             disabled={loading}
           >
@@ -368,13 +369,13 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                  className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white border-t-transparent rounded-full mr-2 sm:mr-3"
+                  className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white border-t-transparent rounded-full mr-3"
                 />
                 {t("searching") || "Searching..."}
               </div>
             ) : (
               <div className="flex items-center justify-center">
-                <svg className="h-4 w-4 sm:h-5 sm:w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -390,14 +391,15 @@ const SearchBox = ({ setWeatherInfo, setForecastInfo, setAqiInfo }) => {
           <AnimatePresence>
             {error && (
               <motion.div
-                initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                initial={{ opacity: 0, y: -5, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                className="p-3 sm:p-4 bg-red-50/90 dark:bg-red-900/20 border border-red-200/60 dark:border-red-800/60 rounded-xl sm:rounded-2xl backdrop-blur-sm"
+                exit={{ opacity: 0, y: -5, scale: 0.98 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="p-4 bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/10 border border-red-200/60 dark:border-red-800/30 rounded-2xl backdrop-blur-sm"
               >
                 <div className="flex items-center">
                   <svg
-                    className="h-4 w-4 sm:h-5 sm:w-5 text-red-500 mr-2 sm:mr-3 flex-shrink-0"
+                    className="h-5 w-5 text-red-500 mr-3 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

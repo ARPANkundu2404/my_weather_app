@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { defaultTips } from "../utils/tips"
@@ -40,38 +42,38 @@ const WeatherTips = ({ weatherType }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="w-full max-w-6xl mx-auto"
     >
-      <div className="bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-50 dark:from-yellow-900/20 dark:via-orange-900/20 dark:to-amber-900/20 backdrop-blur-xl rounded-3xl shadow-2xl border border-yellow-200/50 dark:border-yellow-800/50 overflow-hidden">
+      <div className="bg-gradient-to-br from-white/90 via-blue-50/80 to-blue-100/70 dark:from-gray-800/90 dark:via-gray-700/80 dark:to-blue-900/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-blue-200/50 dark:border-blue-700/30 overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-yellow-400 via-orange-500 to-amber-500 p-6">
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 p-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-4">
               <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatDelay: 3 }}
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, repeatDelay: 4, ease: "easeInOut" }}
                 className="p-3 bg-white/20 rounded-2xl"
               >
                 <span className="text-3xl">💡</span>
               </motion.div>
               <div>
                 <h3 className="text-2xl lg:text-3xl font-bold text-white">Weather Tip for {weatherType}</h3>
-                <p className="text-yellow-100 mt-1">Helpful advice for current conditions</p>
+                <p className="text-blue-100 mt-1">Helpful advice for current conditions</p>
               </div>
             </div>
 
             <motion.button
-              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setShowEditor(true)}
-              className="p-3 bg-white/20 hover:bg-white/30 rounded-2xl transition-all duration-300 group"
+              className="p-3 bg-white/20 hover:bg-white/30 rounded-2xl transition-all duration-300 ease-in-out group"
               title="Edit tip"
             >
               <svg
-                className="h-6 w-6 text-white group-hover:scale-110 transition-transform"
+                className="h-6 w-6 text-white group-hover:scale-110 transition-transform duration-300"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -92,25 +94,25 @@ const WeatherTips = ({ weatherType }) => {
             {!showEditor ? (
               <motion.div
                 key="tip-display"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                className="p-6 bg-white/60 dark:bg-gray-800/60 rounded-2xl border border-white/20 dark:border-gray-700/20 backdrop-blur-sm"
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="p-6 bg-gradient-to-br from-white/70 via-blue-50/50 to-blue-100/40 dark:from-gray-700/70 dark:via-gray-600/50 dark:to-blue-800/40 backdrop-blur-sm rounded-2xl border border-blue-200/40 dark:border-blue-700/20"
               >
-                <p className="text-gray-800 dark:text-white text-xl leading-relaxed font-medium">{currentTip}</p>
+                <p className="text-blue-900 dark:text-blue-100 text-xl leading-relaxed font-medium">{currentTip}</p>
               </motion.div>
             ) : (
               <motion.div
                 key="tip-editor"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 className="space-y-6"
               >
                 <div>
-                  <label className="block text-lg font-bold text-gray-700 dark:text-gray-300 mb-3">
+                  <label className="block text-lg font-bold text-blue-900 dark:text-blue-100 mb-3">
                     Custom tip for {weatherType} weather:
                   </label>
                   <textarea
@@ -118,16 +120,16 @@ const WeatherTips = ({ weatherType }) => {
                     onChange={(e) => setCustomTip(e.target.value)}
                     placeholder="Enter your custom weather tip..."
                     rows={4}
-                    className="w-full px-4 py-4 bg-white/80 dark:bg-gray-700/80 border-2 border-gray-300/50 dark:border-gray-600/50 rounded-2xl focus:outline-none focus:ring-4 focus:ring-yellow-500/20 focus:border-yellow-500 dark:focus:border-yellow-400 transition-all duration-300 text-gray-800 dark:text-white resize-none text-lg"
+                    className="w-full px-4 py-4 bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm border-2 border-blue-200/60 dark:border-blue-700/40 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-500 ease-in-out text-blue-900 dark:text-blue-100 resize-none text-lg placeholder-blue-600/60 dark:placeholder-blue-400/60"
                   />
                 </div>
 
                 <div className="flex space-x-4">
                   <motion.button
-                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleSave}
-                    className="flex-1 px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                    className="flex-1 px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-500 ease-in-out flex items-center justify-center space-x-2"
                   >
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -141,10 +143,10 @@ const WeatherTips = ({ weatherType }) => {
                   </motion.button>
 
                   <motion.button
-                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleCancel}
-                    className="px-6 py-4 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2"
+                    className="px-6 py-4 bg-gradient-to-br from-white/70 via-blue-50/50 to-blue-100/40 dark:from-gray-700/70 dark:via-gray-600/50 dark:to-blue-800/40 backdrop-blur-sm hover:from-white/80 hover:via-blue-50/60 hover:to-blue-100/50 dark:hover:from-gray-600/80 dark:hover:via-gray-500/60 dark:hover:to-blue-700/50 text-blue-900 dark:text-blue-100 rounded-2xl font-bold transition-all duration-500 ease-in-out flex items-center justify-center space-x-2 border border-blue-200/60 dark:border-blue-700/40"
                   >
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
