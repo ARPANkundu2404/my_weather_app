@@ -13,5 +13,5 @@ export const AQI_API_URL =
 export const HISTORICAL_DB_API_URL =
   "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
 export const HISTORY_API_KEY = process.env.REACT_APP_HISTORY_API_KEY;
-
-
+export const WEATHER_MAP_API_URL =
+  "https://api.openweathermap.org/geo/1.0/direct?q=";

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { WEATHER_API_KEY } from "../utils/constant";
+import { WEATHER_API_KEY, WEATHER_MAP_API_URL } from "../utils/constant";
 
 const WeatherMaps = () => {
   const mapRef = useRef(null);
@@ -83,7 +83,7 @@ const WeatherMaps = () => {
   const fetchCityCoordinates = async (cityName) => {
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${WEATHER_API_KEY}`
+        `${WEATHER_MAP_API_URL}${cityName}&limit=1&appid=${WEATHER_API_KEY}`
       );
       const data = await response.json();
 
